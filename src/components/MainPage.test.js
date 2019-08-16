@@ -19,7 +19,7 @@ it('renders MainPage without crashing', () => {
 })
 
 it('filters robots correctly', () => {
-  const mockProps2 = {
+  const mockPropsTmp = {
     onRequestRobots: jest.fn(),
     robots: [{
       id: 1,
@@ -34,10 +34,21 @@ it('filters robots correctly', () => {
     searchField: 'john',
     isPending: false
   }
-  const wrapper2 = shallow(<MainPage {...mockProps2}/>)
-  expect(wrapper2.instance().filterRobots()).toEqual([{
+  const wrapperTmp = shallow(<MainPage {...mockPropsTmp}/>)
+  expect(wrapperTmp.instance().filterRobots()).toEqual([{
     id: 1,
     name: 'John',
     email: 'john@gmail.com'
   }])
+})
+
+it('renders a message while promise is still pending', () => {
+  const mockPropsTmp = {
+    onRequestRobots: jest.fn(),
+    robots: [],
+    searchField: '',
+    isPending: true
+  }
+  const wrapperTmp = shallow(<MainPage {...mockPropsTmp}/>)
+  expect(wrapperTmp.find('h1').length).toEqual(1);
 })
